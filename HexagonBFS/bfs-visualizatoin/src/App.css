@@ -1,0 +1,39 @@
+.row {
+	display: flex;
+	flex-direction: row;
+}
+.col {
+	display: flex;
+	flex-direction: column;
+}
+.node {
+	width: 20px;
+	height: 20px;
+	margin: 2px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	outline: none;
+	border: none;
+	transition: all 1s;
+}
+.active {
+	background-color: #ff0;
+}
+.inactive {
+	background-color: black;
+}
+.center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+body {
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: grey;
+}

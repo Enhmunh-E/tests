@@ -1,0 +1,11 @@
+.node {
+  border: 1px solid #ccc;
+  background-color: black;
+  width: 40px;
+  height: 40px;
+}
+#container {
+  display: grid;
+  grid-template-columns: repeat(10, 40px);
+  /* grid-template-rows: repeat(40px, 20); */
+}

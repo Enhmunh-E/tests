@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.2/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.2/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.2/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script defer src="sketch.js"></script>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body id="root">
+    <svg>
+      <polygon
+        points="30 0, 60 20, 60 50, 30 70, 0 50, 0 20"
+        fill="yellow"
+        stroke="blue"
+      ></polygon>
+    </svg>
+
+    <script>
+      const n = 10,
+        m = 10;
+      const height = 70,
+        width = 60;
+      const defaultPositions = [
+        [30, 0],
+        [60, 20],
+        [60, 50],
+        [30, 70],
+        [0, 50],
+        [0, 20],
+      ];
+      const container = document.getElementById("root");
+      for (let i = 0; i < n; i++) {
+        for (let j = 0; j < m; j++) {
+          const pos = defaultPositions.map(([x, y]) => [
+            x + width * j,
+            y + height * i,
+          ]);
+          const iconSvg = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "svg"
+          );
+          const polygon = document.createElementNS(
+            "http:http://www.w3.org/2000/svg",
+            "polygon"
+          );
+          polygon.setAttribute(
+            "points",
+            pos.map(([posX, posY]) => `${posX} ${posY}`).join(", ")
+          );
+          polygon.setAttribute("fill", "yellow");
+          polygon.setAttribute("stroke", "blue");
+          iconSvg.appendChild(polygon);
+          container.appendChild(iconSvg);
+        }
+      }
+    </script>
+  </body>
+</html> -->

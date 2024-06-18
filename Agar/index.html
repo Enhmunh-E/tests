@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div onclick="start()" style="position: fixed; top: 0; left: 0">Start</div>
+    <script>
+      let canvas = document.createElement("canvas"),
+        ctx = canvas.getContext("2d"),
+        circles = [];
+      document.body.appendChild(canvas);
+      canvas.width = 10000;
+      canvas.height = 10000;
+      const mouseMove = (e) => {
+        console.log(e);
+      };
+      document.addEventListener("mousemove", mouseMove);
+      var step = 40;
+      var drawGrid = () => {
+        ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        for (var x = 0; x <= canvas.width; x += 20) {
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, canvas.height);
+        }
+        ctx.stroke();
+        ctx.beginPath();
+        for (var y = 0; y <= canvas.height; y += 20) {
+          ctx.moveTo(0, y);
+          ctx.lineTo(canvas.width, y);
+        }
+        ctx.strokeStyle = "rgb(20,20,20)";
+        ctx.stroke();
+      };
+      drawGrid();
+
+      let mouseDirection = {
+        x: 1,
+        y: 1,
+      };
+      let interval = null;
+      const start = () => {
+        if (interval !== null) end();
+        window.scrollTo({
+          left: canvas.width / 2 - window.innerWidth / 2,
+          top: canvas.height / 2 - window.innerHeight / 2,
+        });
+        interval = setInterval(() => {
+          console.log("test");
+          move();
+        }, 10);
+      };
+      const end = () => {
+        clearInterval(interval);
+        interval = null;
+      };
+      const move = () => {
+        window.scrollTo({
+          left: window.scrollX + mouseDirection.x,
+          top: window.scrollY + mouseDirection.y,
+        });
+      };
+    </script>
+  </body>
+</html>
+
+// const Circle = (x, y, radius) => { // var c = new Path2D(); // c.arc(x, y,
+radius, 0, Math.PI * 2); // return c; // }; // const init = () => { //
+ctx.strokeStyle = "white"; // for (var i = 0; i < 60; i++) { // circles.push( //
+Circle( // Math.random() * (canvas.width - 40) + 20, // Math.random() *
+(canvas.height - 40) + 20, // 20 // ) // ); // ctx.fill(circles[i], "nonzero");
+// ctx.stroke(circles[i], "nonzero"); // } // }; // const clickHandler = (e) =>
+{ // var r = canvas.getBoundingClientRect(), // x = e.clientX - r.left, // y =
+e.clientY - r.top, // i; // for (i = circles.length - 1; i >= 0; --i) { //
+console.log(i); // if (ctx.isPointInPath(circles[i], x, y, "nonzero")) { //
+circles.splice(i, 1); // } // } // ctx.clearRect(0, 0, canvas.width,
+canvas.height); // for (i = 0; i < circles.length; i++) { //
+ctx.fill(circles[i], "nonzero"); // ctx.stroke(circles[i], "nonzero"); // } //
+}; // init(); // canvas.addEventListener("click", clickHandler, false);

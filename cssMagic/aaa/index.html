@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      p {
+        position: relative;
+        border: 1px solid black;
+        width: 500px;
+      }
+      p::before {
+        content: "My name is Donald";
+        background-color: yellow;
+        color: red;
+        font-weight: bold;
+        position: absolute;
+        animation: mymove 5s infinite;
+      }
+      @keyframes mymove {
+        from {
+          bottom: -100%;
+        }
+        to {
+          bottom: 0%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p></p>
+  </body>
+</html>

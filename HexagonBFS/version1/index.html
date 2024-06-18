@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!-- saved from url=(0068)file:///Users/enkhmunkh/Documents/testProjects/HexagonBFS/index.html -->
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script>
+      const init = () => {
+        const svg = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        );
+        svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        svg.setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
+        const container = document.getElementById("container");
+        svg.setAttribute("width", window.innerWidth);
+        svg.setAttribute("height", window.innerHeight);
+        svg.setAttribute(
+          "viewbox",
+          `0 0 ${window.innerWidth} ${window.innerHeight}`
+        );
+        container.appendChild(svg);
+
+        let n = Math.ceil(window.innerHeight / 50),
+          m = Math.ceil(window.innerWidth / 60);
+
+        const height = 70,
+          width = 60;
+        const defaultPositions = [
+          [30, 0],
+          [60, 20],
+          [60, 50],
+          [30, 70],
+          [0, 50],
+          [0, 20],
+        ];
+        let X = -30,
+          Y = -20;
+
+        for (let i = 0; i < n; i++) {
+          for (let j = 0; j < m; j++) {
+            hexagon(
+              width * j + (i % 2 !== 0 ? 30 : 0) + X,
+              height * i + Y,
+              i,
+              j
+            );
+          }
+          Y -= 20;
+        }
+        function hexagon(transX, transY, i, j) {
+          var polygon = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "polygon"
+          );
+          const points = defaultPositions
+            .map(([x, y]) => [`${x + transX} ${y + transY}`])
+            .join(", ");
+          polygon.setAttributeNS(null, "points", points);
+          polygon.setAttributeNS(null, "fill", "rgb(255, 255, 255)");
+          // polygon.setAttributeNS(null, "stroke-width", ".5");
+          // polygon.setAttributeNS(null, "stroke", "cyan");
+          polygon.id = `${i}-${j}`;
+          polygon.onmouseover = () => {
+            startWave(i, j);
+          };
+          svg.appendChild(polygon);
+        }
+        const startWave = (I, J) => {
+          let arr = new Array(n).fill(null).map(() => new Array(m).fill(false));
+          const movesOdd = [
+            [-1, 0],
+            [-1, 1],
+            [0, 1],
+            [1, 1],
+            [1, 0],
+            [0, -1],
+          ];
+          const movesEven = [
+            [-1, -1],
+            [-1, 0],
+            [0, 1],
+            [1, 0],
+            [1, -1],
+            [0, -1],
+          ];
+          let queue = [];
+          queue.push([I, J, 0]);
+          arr[I][J] = true;
+          let delay = 0;
+          while (queue.length > 0) {
+            const [i, j, depth] = queue.shift();
+            const polygon = document.getElementById(`${i}-${j}`);
+            polygon.setAttributeNS(
+              null,
+              `fill`,
+              `rgba(0, 0, 255 , ${depth / Math.max(n, m)})`
+            );
+            // 1 - depth / Math.max(Math.sqrt(n * n + m * m))
+
+            for (const [moveX, moveY] of i % 2 == 0 ? movesEven : movesOdd) {
+              const newI = moveX + i,
+                newJ = moveY + j;
+              if (
+                newI >= 0 &&
+                newI < n &&
+                newJ >= 0 &&
+                newJ < m &&
+                arr[newI][newJ] === false
+              ) {
+                queue.push([newI, newJ, depth + 1]);
+                arr[newI][newJ] = true;
+              }
+            }
+          }
+        };
+      };
+      window.onresize = () => {
+        document.getElementById("container").innerHTML = "";
+        init();
+      };
+      init();
+    </script>
+  </body>
+</html>
